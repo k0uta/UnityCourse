@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour {
     const float horizontalSpeed = 150.0f;
@@ -14,6 +15,8 @@ public class PlayerController : NetworkBehaviour {
 
     public GameObject bulletPrefab;
 
+    public GameObject messageBalloonPrefab;
+
     public Transform bulletSpawn;
 
     float speedMultiplier;
@@ -21,10 +24,10 @@ public class PlayerController : NetworkBehaviour {
     [SyncVar(hook = "OnChangePlayerColor")]
     public Color playerColor;
 
-
     public override void OnStartLocalPlayer()
     {
         CmdChangeColor(Color.blue);
+        FindObjectOfType<TextInputController>().playerController = this;
     }
 
     void OnChangePlayerColor(Color color)
@@ -89,5 +92,30 @@ public class PlayerController : NetworkBehaviour {
         NetworkServer.Spawn(bullet);
 
         Destroy(bullet, bulletLifetime);
+    }
+
+    [Command]
+    public void CmdSendMessage(string message)
+    {
+        if(!isServer)
+        {
+            return;
+        }
+
+        Debug.Log(message);
+
+        RpcMessageReceived(message);
+    }
+
+    [ClientRpc]
+    void RpcMessageReceived(string message)
+    {
+        Debug.Log(message);
+        var messageBalloon = (GameObject)Instantiate(messageBalloonPrefab, this.transform);
+        messageBalloon.transform.localPosition = new Vector3(0, 2, 0);
+
+        messageBalloon.GetComponentInChildren<Text>().text = message;
+
+        Destroy(messageBalloon, 2.0f);
     }
 }
