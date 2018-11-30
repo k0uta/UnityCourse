@@ -18,17 +18,27 @@ public class PlayerController : NetworkBehaviour {
 
     float speedMultiplier;
 
+    [SyncVar(hook = "OnChangePlayerColor")]
+    public Color playerColor;
+
+
     public override void OnStartLocalPlayer()
     {
-        GetComponent<MeshRenderer>().material.color = Color.blue;
+        CmdChangeColor(Color.blue);
     }
 
-    // Use this for initialization
-    void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void OnChangePlayerColor(Color color)
+    {
+        GetComponent<MeshRenderer>().material.color = color;
+    }
+
+    private void Start()
+    {
+        GetComponent<MeshRenderer>().material.color = playerColor;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if(!isLocalPlayer)
         {
             return;
@@ -47,15 +57,26 @@ public class PlayerController : NetworkBehaviour {
             transform.Translate(0, z, 0);
         }
 
-        if(Input.GetKey(KeyCode.Tab))
-        {
-            CmdFire();
-        }
+        //if(Input.GetKey(KeyCode.Tab))
+        //{
+        //    CmdFire();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CmdFire();
         }
+
+        if(Input.GetKey(KeyCode.Tab))
+        {
+            CmdChangeColor(new Color(Random.value, Random.value, Random.value));
+        }
+    }
+
+    [Command]
+    void CmdChangeColor(Color color)
+    {
+        playerColor = color;
     }
 
     [Command]
