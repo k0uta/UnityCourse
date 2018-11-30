@@ -14,10 +14,12 @@ public class Health : NetworkBehaviour {
 
     public bool destroyOnDeath;
 
+    PlayerSpawner playerSpawner;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,7 +48,7 @@ public class Health : NetworkBehaviour {
     [ClientRpc]
     void RpcRespawn()
     {
-        if(destroyOnDeath)
+        if (destroyOnDeath)
         {
             Destroy(gameObject);
         }
@@ -54,7 +56,7 @@ public class Health : NetworkBehaviour {
         {
             if (isLocalPlayer)
             {
-                transform.position = Vector3.zero;
+                transform.position = playerSpawner.GetRandomSpawn().position;
             }
         }
     }
