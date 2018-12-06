@@ -12,16 +12,26 @@ public class PlayerController : NetworkBehaviour {
 
 	public Transform boxPlatform;
 
-	private int objectiveLayer;
+	private int interactableLayer;
+
+    MeshRenderer meshRenderer;
+
+    [SyncVar]
+    private bool visibility = true;
 
     private void Start()
 	{
         cam = Camera.main;
-		objectiveLayer = LayerMask.NameToLayer("Objective");
+		interactableLayer = LayerMask.NameToLayer("Interactable");
 
-        if(isLocalPlayer)
+        meshRenderer = GetComponent<MeshRenderer>();
+
+        if (isLocalPlayer)
         {
             cam.GetComponent<SmoothFollow>().target = this.transform;
+        } else
+        {
+            meshRenderer.enabled = visibility;
         }
 	}
 
@@ -31,10 +41,17 @@ public class PlayerController : NetworkBehaviour {
         agent.SetDestination(position);
     }
 
+    [Command]
+    void CmdSetVisibility(bool _visibility)
+    {
+        visibility = _visibility;
+    }
+
 	// Update is called once per frame
 	void Update () {
-        if(!isLocalPlayer)
+        if (!isLocalPlayer)
         {
+            meshRenderer.enabled = visibility;
             return;
         }
 
@@ -49,13 +66,18 @@ public class PlayerController : NetworkBehaviour {
                 CmdSetDestination(hit.point);
 			}
 		}
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            CmdSetVisibility(!visibility);
+        }
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.layer == objectiveLayer)
+		if (other.gameObject.layer == interactableLayer)
 		{
-			other.gameObject.GetComponent<ObjectiveBehaviour>().AttachTo(this);
+			other.gameObject.GetComponent<InteractableBehaviour>().AttachTo(this);
 		}
 	}
 }

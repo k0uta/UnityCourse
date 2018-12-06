@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ObjectiveSpawner : NetworkBehaviour {
+public class InteractableSpawner : NetworkBehaviour {
     public GameObject cratePrefab;
 
     public int numberOfCrates = 5;

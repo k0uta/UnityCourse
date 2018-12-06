@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallBoxObjective : ObjectiveBehaviour {
+public class CrateInteractable : InteractableBehaviour {
 	float speedModifier = 1.0f;
 	public override void AttachTo(PlayerController player)
 	{
