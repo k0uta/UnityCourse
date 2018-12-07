@@ -49,7 +49,7 @@ public class PlayerController : NetworkBehaviour {
 
         speedMultiplier = Input.GetKey(KeyCode.Q) ? 3.0f : 1.0f;
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * horizontalSpeed * speedMultiplier;
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime *  horizontalSpeed * speedMultiplier;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * verticalSpeed * speedMultiplier;
 
         transform.Rotate(0, x, 0);
