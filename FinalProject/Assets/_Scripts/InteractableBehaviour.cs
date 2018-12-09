@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.Networking;
 
-public class InteractableBehaviour : MonoBehaviour
+public class InteractableBehaviour : NetworkBehaviour
 {
 	public virtual void AttachTo(PlayerController player)
 	{
 	}
+
 	public virtual void Detach()
 	{
 	}

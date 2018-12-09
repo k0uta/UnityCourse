@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 public class InteractableSpawner : NetworkBehaviour {
@@ -17,8 +15,14 @@ public class InteractableSpawner : NetworkBehaviour {
         for (int i = 0; i < numberOfCrates; i++)
         {
             var crate = (GameObject) Instantiate(cratePrefab);
-            crate.transform.position = new Vector3(Random.Range(minRange, maxRange), 1, Random.Range(minRange, maxRange));
             NetworkServer.Spawn(crate);
+
+            RespawnPosition(crate.transform);
         }
+    }
+
+    public void RespawnPosition(Transform crate)
+    {
+        crate.position = new Vector3(Random.Range(minRange, maxRange), 1, Random.Range(minRange, maxRange));
     }
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerPlatformChecker : MonoBehaviour {
+public class PlayerPlatformChecker : NetworkBehaviour {
 	private void OnTriggerEnter(Collider other)
 	{
 		var crate = other.GetComponent<CrateInteractable>();

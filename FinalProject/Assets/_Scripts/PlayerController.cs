@@ -1,30 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Networking;
 using UnityStandardAssets.Utility;
 
 public class PlayerController : NetworkBehaviour {
-	public Camera cam;
+    public Camera cam;
 
-	public NavMeshAgent agent;
+    public NavMeshAgent agent;
 
-	public Transform boxPlatform;
+    public Transform boxPlatform;
+    
+    public List<CrateInteractable> crates;
 
-	private int interactableLayer;
+    [SyncVar]
+    public int score = 0;
+
+    private int interactableLayer;
+
+    Animator animator;
+
+    LayerMask layerMask;
 
     MeshRenderer meshRenderer;
+
+    float baseSpeed;
 
     [SyncVar]
     private bool visibility = true;
 
     private void Start()
 	{
+        agent = GetComponent<NavMeshAgent>();
         cam = Camera.main;
 		interactableLayer = LayerMask.NameToLayer("Interactable");
 
+        animator = GetComponent<Animator>();
+
         meshRenderer = GetComponent<MeshRenderer>();
+
+        layerMask = ~(1 << interactableLayer);
+
+        baseSpeed = agent.speed;
 
         if (isLocalPlayer)
         {
@@ -49,6 +66,7 @@ public class PlayerController : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        animator.SetFloat("Speed", agent.velocity.magnitude);
         if (!isLocalPlayer)
         {
             meshRenderer.enabled = visibility;
@@ -61,6 +79,7 @@ public class PlayerController : NetworkBehaviour {
 
 			RaycastHit hit;
 
+            Debug.DrawRay(ray.origin, ray.direction, Color.blue, 1.0f);
 			if (Physics.Raycast(ray, out hit))
 			{
                 CmdSetDestination(hit.point);
@@ -75,6 +94,11 @@ public class PlayerController : NetworkBehaviour {
 
 	private void OnTriggerEnter(Collider other)
 	{
+        if(!isServer)
+        {
+            return;
+        }
+
 		if (other.gameObject.layer == interactableLayer)
 		{
 			other.gameObject.GetComponent<InteractableBehaviour>().AttachTo(this);
