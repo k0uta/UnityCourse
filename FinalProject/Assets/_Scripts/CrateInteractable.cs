@@ -34,6 +34,6 @@ public class CrateInteractable : InteractableBehaviour {
 
         player.crates.Remove(this);
 
-		//base.RpcDetach();
+        base.Detach();
 	}
 }

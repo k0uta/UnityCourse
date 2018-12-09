@@ -13,18 +13,14 @@ public class PlayerController : NetworkBehaviour {
     
     public List<CrateInteractable> crates;
 
-    [SyncVar]
+    [SyncVar(hook = "OnChangeScore")]
     public int score = 0;
 
     private int interactableLayer;
 
     Animator animator;
 
-    LayerMask layerMask;
-
     MeshRenderer meshRenderer;
-
-    float baseSpeed;
 
     [SyncVar]
     private bool visibility = true;
@@ -38,10 +34,6 @@ public class PlayerController : NetworkBehaviour {
         animator = GetComponent<Animator>();
 
         meshRenderer = GetComponent<MeshRenderer>();
-
-        layerMask = ~(1 << interactableLayer);
-
-        baseSpeed = agent.speed;
 
         if (isLocalPlayer)
         {
@@ -104,4 +96,14 @@ public class PlayerController : NetworkBehaviour {
 			other.gameObject.GetComponent<InteractableBehaviour>().AttachTo(this);
 		}
 	}
+
+    void OnChangeScore(int _score)
+    {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+
+        StageManager.Instance.scoreText.text = string.Format("Score: {0}", _score);
+    }
 }
