@@ -22,7 +22,7 @@ public class ObjectiveZone : NetworkBehaviour {
             return;
         }
 
-        var player = other.transform.root.GetComponent<PlayerController>();
+        var player = other.GetComponent<PlayerController>();
 
         if(!player)
         {

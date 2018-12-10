@@ -1001,6 +1001,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114568604080346344, guid: a58f7f62aad52494399a84455f2531b5,
+        type: 2}
+      propertyPath: interactableSpawner
+      value: 
+      objectReference: {fileID: 1136111919}
     - target: {fileID: 114974439966972608, guid: a58f7f62aad52494399a84455f2531b5,
         type: 2}
       propertyPath: patrolPoints.Array.data[0]
@@ -1011,11 +1016,6 @@ Prefab:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1198786653}
-    - target: {fileID: 114568604080346344, guid: a58f7f62aad52494399a84455f2531b5,
-        type: 2}
-      propertyPath: interactableSpawner
-      value: 
-      objectReference: {fileID: 1136111919}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a58f7f62aad52494399a84455f2531b5, type: 2}
   m_IsPrefabParent: 0
