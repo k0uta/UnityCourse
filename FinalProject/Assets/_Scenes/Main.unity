@@ -1001,7 +1001,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114568604080346344, guid: a58f7f62aad52494399a84455f2531b5,
+    - target: {fileID: 114884647673036830, guid: a58f7f62aad52494399a84455f2531b5,
         type: 2}
       propertyPath: interactableSpawner
       value: 

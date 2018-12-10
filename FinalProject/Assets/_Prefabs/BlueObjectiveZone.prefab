@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 195389001022342120}
   - component: {fileID: 114974439966972608}
   - component: {fileID: 54648385933597474}
+  - component: {fileID: 114884647673036830}
   m_Layer: 2
   m_Name: BlueObjectiveZone
   m_TagString: Untagged
@@ -59,10 +60,8 @@ GameObject:
   - component: {fileID: 33406391773493548}
   - component: {fileID: 65026157941538118}
   - component: {fileID: 23851105785860940}
-  - component: {fileID: 114734574370837656}
-  - component: {fileID: 114568604080346344}
   m_Layer: 2
-  m_Name: ObjectiveZone
+  m_Name: ZoneCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,50 +678,18 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 1
   m_AffectedAgents: ffffffff
---- !u!114 &114568604080346344
+--- !u!114 &114884647673036830
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1386518153941898}
+  m_GameObject: {fileID: 1063898640339720}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27989eb93bfb824488d2f135afecab87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactableSpawner: {fileID: 0}
---- !u!114 &114734574370837656
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1386518153941898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 165
-    i1: 143
-    i2: 127
-    i3: 98
-    i4: 170
-    i5: 213
-    i6: 36
-    i7: 148
-    i8: 57
-    i9: 154
-    i10: 132
-    i11: 69
-    i12: 95
-    i13: 37
-    i14: 49
-    i15: 181
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114917157797254002
 MonoBehaviour:
   m_ObjectHideFlags: 1
