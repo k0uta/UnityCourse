@@ -15,12 +15,12 @@ public class PatrolBehaviour : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
-        GoToNextPoint();
-
+        patrolPoints.Shuffle();
     }
 
     public override void OnStartServer()
     {
+        GoToNextPoint();
     }
 
     private void Update()

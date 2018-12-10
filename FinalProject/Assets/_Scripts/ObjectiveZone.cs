@@ -6,16 +6,20 @@ public class ObjectiveZone : NetworkBehaviour {
 
     public InteractableSpawner interactableSpawner;
 
-    NavMeshAgent agent;
+    public ObjectiveType objectiveType;
 
-	// Use this for initialization
+    public GameObject baseObject;
+
+    public GameObject zoneObject;
+
+    NavMeshAgent agent;
+    
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+        baseObject.GetComponent<MeshRenderer>().materials[2].color = objectiveType.color;
+
+        zoneObject.GetComponent<Renderer>().material.color = new Color(objectiveType.color.r, objectiveType.color.g, objectiveType.color.b, 0.25f);
 	}
 
     private void OnTriggerEnter(Collider other)
@@ -37,10 +41,16 @@ public class ObjectiveZone : NetworkBehaviour {
         for (int i = crates.Count - 1; i >= 0; i--)
         {
             var crate = crates[i];
-            player.score += crate.scoreValue;
-            crate.Detach();
-            interactableSpawner.RespawnPosition(crate.transform);
-            agent.speed += crate.speedModifier * 2.0f;
+            if(crate.objectiveType == this.objectiveType)
+            {
+                player.score += crate.scoreValue;
+
+                crate.Detach();
+
+                agent.speed += crate.speedModifier * 2.0f;
+
+                interactableSpawner.RespawnPosition(crate.transform);
+            }
         }
     }
 }

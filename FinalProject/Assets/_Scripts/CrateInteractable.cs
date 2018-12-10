@@ -5,6 +5,14 @@ public class CrateInteractable : InteractableBehaviour {
 
     public float speedModifier = 1.0f;
 
+    public ObjectiveType objectiveType;
+
+    public void SetObjectiveType(ObjectiveType _objectiveType)
+    {
+        objectiveType = _objectiveType;
+        GetComponent<MeshRenderer>().material.color = _objectiveType.color;
+    }
+
 	public override void AttachTo(PlayerController player)
 	{
         if(this.transform.parent == player.boxPlatform)
