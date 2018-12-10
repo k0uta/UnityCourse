@@ -42,6 +42,7 @@ public class PatrolBehaviour : NetworkBehaviour {
 
         if(++nextIndex >= patrolPoints.Count)
         {
+            patrolPoints.Shuffle();
             nextIndex = 0;
         }
     }

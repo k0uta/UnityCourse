@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.AI;
 
 public class ObjectiveZone : NetworkBehaviour {
 
     public InteractableSpawner interactableSpawner;
 
+    NavMeshAgent agent;
+
 	// Use this for initialization
 	void Start () {
-		
+        agent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
@@ -37,8 +40,7 @@ public class ObjectiveZone : NetworkBehaviour {
             player.score += crate.scoreValue;
             crate.Detach();
             interactableSpawner.RespawnPosition(crate.transform);
+            agent.speed += crate.speedModifier * 2.0f;
         }
-
-        //NetworkServer.Destroy()
     }
 }
