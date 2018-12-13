@@ -18,14 +18,14 @@ public class PatrolBehaviour : NetworkBehaviour {
         patrolPoints.Shuffle();
     }
 
-    public override void OnStartServer()
-    {
-        GoToNextPoint();
-    }
-
     private void Update()
     {
-        if(!agent.pathPending && agent.remainingDistance < 0.5f)
+        if(!isServer)
+        {
+            return;
+        }
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             GoToNextPoint();
         }

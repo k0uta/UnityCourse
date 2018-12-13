@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -380,6 +380,32 @@ Transform:
   m_Father: {fileID: 534397946}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &160448522 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1063898640339720, guid: a58f7f62aad52494399a84455f2531b5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1684100358}
+--- !u!114 &160448530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 160448522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!1 &184729368 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1713062439157268, guid: a58f7f62aad52494399a84455f2531b5,
@@ -413,6 +439,32 @@ Transform:
   m_Father: {fileID: 534397946}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &229611593 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1063898640339720, guid: a58f7f62aad52494399a84455f2531b5,
+    type: 2}
+  m_PrefabInternal: {fileID: 2062417353}
+--- !u!114 &229611601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 229611593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!1 &257539568 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1386518153941898, guid: a58f7f62aad52494399a84455f2531b5,
@@ -583,6 +635,32 @@ RectTransform:
   m_AnchoredPosition: {x: 12, y: -15}
   m_SizeDelta: {x: 215.09998, y: 59.8}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &709115144 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1063898640339720, guid: a58f7f62aad52494399a84455f2531b5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1638281548}
+--- !u!114 &709115152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709115144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!1 &841106892 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1386518153941898, guid: a58f7f62aad52494399a84455f2531b5,
@@ -662,6 +740,32 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975281160}
+--- !u!1 &1116466623 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1063898640339720, guid: a58f7f62aad52494399a84455f2531b5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1532979731}
+--- !u!114 &1116466631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116466623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!1 &1136111917
 GameObject:
   m_ObjectHideFlags: 0
