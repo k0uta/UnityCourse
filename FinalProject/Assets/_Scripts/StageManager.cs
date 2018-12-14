@@ -7,15 +7,19 @@ public class StageManager : NetworkBehaviour {
     [SyncVar(hook = "OnChangeTime")]
     public int secondsLeft = 60;
 
+    public int roundTime = 60;
+
     public Text timerText;
 
     public Text scoreText;
 
-    static StageManager _instance;
-
     public CanvasGroup gameUI;
 
     public CanvasGroup endGamePopup;
+
+    public InputField playerNameInput;
+
+    static StageManager _instance;
 
     public static StageManager Instance
     {
@@ -34,7 +38,13 @@ public class StageManager : NetworkBehaviour {
 
     public override void OnStartServer()
     {
-        StartCoroutine("GameCountdown");
+        Reset();
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+        gameUI.alpha = 1;
     }
 
     IEnumerator GameCountdown()
@@ -58,6 +68,49 @@ public class StageManager : NetworkBehaviour {
 
     void OnChangeTime(int _secondsLeft)
     {
-        timerText.text = string.Format("Time Left: {0}:{1:00}", (int)_secondsLeft / 60, _secondsLeft);
+        timerText.text = string.Format("Time Left: {0}:{1:00}", _secondsLeft / 60, _secondsLeft % 60);
+    }
+
+    void Reset()
+    {
+        Time.timeScale = 1;
+        gameUI.alpha = 1;
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        var players = FindObjectsOfType<PlayerController>();
+
+        foreach (var player in players)
+        {
+            player.Reset();
+        }
+
+        secondsLeft = roundTime;
+        StartCoroutine("GameCountdown");
+        InteractableSpawner.Instance.Reset();
+        var patrolBehaviours = FindObjectsOfType<PatrolBehaviour>();
+        foreach (var patrolBehaviour in patrolBehaviours)
+        {
+            patrolBehaviour.Reset();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcRematch()
+    {
+        endGamePopup.GetComponent<EndGamePopup>().canvasGroup.alpha = 0;
+        Reset();
+    }
+
+    public void Rematch()
+    {
+        if(!isServer)
+        {
+            return;
+        }
+        RpcRematch();
     }
 }

@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 10
-  speedModifier: 0.93
+  speedModifier: 0.75
   objectiveType: {fileID: 0}
 --- !u!114 &114491549420243796
 MonoBehaviour:
