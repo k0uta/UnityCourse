@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 public class CrateInteractable : InteractableBehaviour {
     public int scoreValue = 10;
 
     public float speedModifier = 1.0f;
-
+    
+    [SyncVar]
     public ObjectiveType objectiveType;
+
+    private void Start()
+    {
+        GetComponent<MeshRenderer>().material.color = objectiveType.color;
+    }
 
     public void SetObjectiveType(ObjectiveType _objectiveType)
     {

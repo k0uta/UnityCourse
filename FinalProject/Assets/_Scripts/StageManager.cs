@@ -13,6 +13,10 @@ public class StageManager : NetworkBehaviour {
 
     static StageManager _instance;
 
+    public CanvasGroup gameUI;
+
+    public CanvasGroup endGamePopup;
+
     public static StageManager Instance
     {
         get {
@@ -35,11 +39,21 @@ public class StageManager : NetworkBehaviour {
 
     IEnumerator GameCountdown()
     {
-        while(true)
+        while(secondsLeft > 0)
         {
             yield return new WaitForSeconds(1);
             secondsLeft--;
         }
+
+        RpcEndGame();
+    }
+
+    [ClientRpc]
+    void RpcEndGame()
+    {
+        Time.timeScale = 0;
+        gameUI.alpha = 0;
+        endGamePopup.GetComponent<EndGamePopup>().Open();
     }
 
     void OnChangeTime(int _secondsLeft)

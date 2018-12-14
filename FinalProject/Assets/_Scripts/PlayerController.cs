@@ -13,6 +13,9 @@ public class PlayerController : NetworkBehaviour {
     
     public List<CrateInteractable> crates;
 
+    [SyncVar]
+    public string playerName;
+
     [SyncVar(hook = "OnChangeScore")]
     public int score = 0;
 
@@ -38,11 +41,20 @@ public class PlayerController : NetworkBehaviour {
         if (isLocalPlayer)
         {
             cam.GetComponent<SmoothFollow>().target = this.transform;
+
+            // TEMP
+            CmdSetPlayerName(string.Format("Player {0}", FindObjectsOfType<PlayerController>().Length));
         } else
         {
             meshRenderer.enabled = visibility;
         }
 	}
+
+    [Command]
+    void CmdSetPlayerName(string _playerName)
+    {
+        playerName = _playerName;
+    }
 
     [Command]
     void CmdSetDestination(Vector3 position)
@@ -99,11 +111,12 @@ public class PlayerController : NetworkBehaviour {
 
     void OnChangeScore(int _score)
     {
-        if(!isLocalPlayer)
+        score = _score;
+        if (!isLocalPlayer)
         {
             return;
         }
 
-        StageManager.Instance.scoreText.text = string.Format("Score: {0}", _score);
+        StageManager.Instance.scoreText.text = string.Format("x {0}", _score);
     }
 }
