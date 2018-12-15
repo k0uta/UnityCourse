@@ -1,13 +1,14 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class StageManager : NetworkBehaviour {
     [SyncVar(hook = "OnChangeTime")]
-    public int secondsLeft = 60;
+    public float secondsLeft = 60;
 
-    public int roundTime = 60;
+    public float roundTime = 60;
 
     public Text timerText;
 
@@ -18,6 +19,10 @@ public class StageManager : NetworkBehaviour {
     public CanvasGroup endGamePopup;
 
     public InputField playerNameInput;
+
+    public AudioSource bgmAudioSource;
+
+    List<PatrolBehaviour> patrolBehaviours;
 
     static StageManager _instance;
 
@@ -39,6 +44,11 @@ public class StageManager : NetworkBehaviour {
     public override void OnStartServer()
     {
         Reset();
+    }
+
+    private void Awake()
+    {
+        patrolBehaviours = new List<PatrolBehaviour>(FindObjectsOfType<PatrolBehaviour>());
     }
 
     private void Start()
@@ -63,16 +73,37 @@ public class StageManager : NetworkBehaviour {
     {
         Time.timeScale = 0;
         gameUI.alpha = 0;
+
+        bgmAudioSource.Stop();
+
+        foreach (var patrolBehaviour in patrolBehaviours)
+        {
+            patrolBehaviour.Stop();
+        }
+
         endGamePopup.GetComponent<EndGamePopup>().Open();
     }
 
-    void OnChangeTime(int _secondsLeft)
+    void OnChangeTime(float _secondsLeft)
     {
-        timerText.text = string.Format("Time Left: {0}:{1:00}", _secondsLeft / 60, _secondsLeft % 60);
+        float percentageCompleted = (roundTime - _secondsLeft) / roundTime;
+        if(percentageCompleted > 0.5)
+        {
+            bgmAudioSource.pitch = 1.25f;
+        } else if(percentageCompleted > 0.8)
+        {
+            bgmAudioSource.pitch = 1.5f;
+        } else
+        {
+            bgmAudioSource.pitch = 1.0f;
+        }
+
+        timerText.text = string.Format("Time Left: {0}:{1:00}", (int)_secondsLeft / 60, (int) _secondsLeft % 60);
     }
 
     void Reset()
     {
+        bgmAudioSource.Play();
         Time.timeScale = 1;
         gameUI.alpha = 1;
 
@@ -91,7 +122,7 @@ public class StageManager : NetworkBehaviour {
         secondsLeft = roundTime;
         StartCoroutine("GameCountdown");
         InteractableSpawner.Instance.Reset();
-        var patrolBehaviours = FindObjectsOfType<PatrolBehaviour>();
+        
         foreach (var patrolBehaviour in patrolBehaviours)
         {
             patrolBehaviour.Reset();

@@ -27,6 +27,12 @@ public class PlayerController : NetworkBehaviour {
 
     public float baseAcceleration = 20;
 
+    public AudioClip scoreAudioClip;
+
+    public AudioClip pickupAudioClip;
+
+    AudioSource audioSource;
+
     private void Start()
 	{
         agent = GetComponent<NavMeshAgent>();
@@ -40,6 +46,8 @@ public class PlayerController : NetworkBehaviour {
             cam.GetComponent<SmoothFollow>().target = this.transform;
 
             CmdSetPlayerName(StageManager.Instance.playerNameInput.text);
+
+            audioSource = GetComponent<AudioSource>();
         } else if(isServer)
         {
             Reset();
@@ -117,6 +125,11 @@ public class PlayerController : NetworkBehaviour {
         if (!isLocalPlayer)
         {
             return;
+        }
+
+        if (_score > 0)
+        {
+            audioSource.PlayOneShot(scoreAudioClip);
         }
 
         StageManager.Instance.scoreText.text = string.Format("x {0}", _score);

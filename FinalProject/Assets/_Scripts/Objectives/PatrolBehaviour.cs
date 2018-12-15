@@ -16,8 +16,17 @@ public class PatrolBehaviour : NetworkBehaviour {
 
     public float baseAcceleration = 8;
 
+    AudioSource audioSource;
+
 	void Awake () {
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void Stop()
+    {
+        agent.SetDestination(transform.position);
+        audioSource.Stop();
     }
 
     private void Start()
@@ -27,8 +36,9 @@ public class PatrolBehaviour : NetworkBehaviour {
 
     public void Reset()
     {
+        audioSource.Play();
         nextIndex = 0;
-        patrolPoints.Shuffle();
+        //patrolPoints.Shuffle();
         transform.position = patrolPoints[nextIndex].position;
 
         agent.speed = baseSpeed;
@@ -59,7 +69,7 @@ public class PatrolBehaviour : NetworkBehaviour {
 
         if(++nextIndex >= patrolPoints.Count)
         {
-            patrolPoints.Shuffle();
+            //patrolPoints.Shuffle();
             nextIndex = 0;
         }
     }

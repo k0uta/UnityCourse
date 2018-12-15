@@ -41,6 +41,8 @@ public class CrateInteractable : InteractableBehaviour {
 
         player.crates.Add(this);
 
+        player.GetComponent<AudioSource>().PlayOneShot(player.pickupAudioClip);
+
         base.AttachTo(player);        
     }
 
