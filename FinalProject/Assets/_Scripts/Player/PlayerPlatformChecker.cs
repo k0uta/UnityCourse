@@ -2,12 +2,25 @@
 using UnityEngine.Networking;
 
 public class PlayerPlatformChecker : NetworkBehaviour {
-	private void OnTriggerEnter(Collider other)
+
+    PlayerController playerController;
+
+    private void Start()
+    {
+        playerController = this.transform.root.GetComponent<PlayerController>();
+    }
+
+    private void OnTriggerEnter(Collider other)
 	{
+        if(!playerController.isServer)
+        {
+            return;
+        }
+
 		var crate = other.GetComponent<CrateInteractable>();
 		if (crate && other.transform.root == transform.root)
 		{
-			crate.Detach();
+            playerController.RpcDetachCrate(crate.GetComponent<NetworkIdentity>().netId);
 		}
 	}
 }

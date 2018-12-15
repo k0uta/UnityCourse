@@ -53,6 +53,8 @@ public class EndGamePopup : MonoBehaviour {
         }
 
         canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
 
         var playersArray = FindObjectsOfType<PlayerController>();
 

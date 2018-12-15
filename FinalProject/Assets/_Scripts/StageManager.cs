@@ -132,7 +132,10 @@ public class StageManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcRematch()
     {
-        endGamePopup.GetComponent<EndGamePopup>().canvasGroup.alpha = 0;
+        var endGameCanvasGroup = endGamePopup.GetComponent<EndGamePopup>().canvasGroup;
+        endGameCanvasGroup.alpha = 0;
+        endGameCanvasGroup.blocksRaycasts = false;
+        endGameCanvasGroup.interactable = false;
         Reset();
     }
 

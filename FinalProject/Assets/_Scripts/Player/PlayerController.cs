@@ -79,7 +79,9 @@ public class PlayerController : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        animator.SetFloat("Speed", agent.velocity.magnitude);
+        if(isServer) {
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+        }
         if (!isLocalPlayer)
         {
             return;
@@ -108,16 +110,25 @@ public class PlayerController : NetworkBehaviour {
 
 		if (other.gameObject.layer == interactableLayer)
 		{
-            other.GetComponent<InteractableBehaviour>().AttachTo(this);
+            //other.GetComponent<InteractableBehaviour>().AttachTo(this);
+            var netId = other.GetComponent<NetworkIdentity>().netId;
+            RpcAttachCrate(netId);
         }
 	}
 
-    //[Command]
-    //void CmdAttachCrate(int crateId)
-    //{
-    //    var crate = InteractableSpawner.Instance.crates[crateId];
-    //    crate.gameObject.GetComponent<InteractableBehaviour>().AttachTo(this);
-    //}
+    [ClientRpc]
+    void RpcAttachCrate(NetworkInstanceId netId)
+    {
+        var crate = ClientScene.FindLocalObject(netId);
+        crate.gameObject.GetComponent<InteractableBehaviour>().AttachTo(this);
+    }
+
+    [ClientRpc]
+    public void RpcDetachCrate(NetworkInstanceId netId)
+    {
+        var crate = ClientScene.FindLocalObject(netId);
+        crate.gameObject.GetComponent<InteractableBehaviour>().Detach();
+    }
 
     void OnChangeScore(int _score)
     {

@@ -13,9 +13,12 @@ public class CrateInteractable : InteractableBehaviour {
     [SyncVar]
     Color objectiveColor;
 
+    Rigidbody rb;
+
     private void Start()
     {
         GetComponent<MeshRenderer>().material.color = objectiveColor;
+        rb = GetComponent<Rigidbody>();
     }
 
     public void SetObjectiveType(ObjectiveType _objectiveType)
@@ -43,6 +46,16 @@ public class CrateInteractable : InteractableBehaviour {
 
         player.GetComponent<AudioSource>().PlayOneShot(player.pickupAudioClip);
 
+        if(isServer)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+        } else
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
+
         base.AttachTo(player);        
     }
 
@@ -55,6 +68,9 @@ public class CrateInteractable : InteractableBehaviour {
 		this.transform.SetParent(null);
 
         player.crates.Remove(this);
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
 
         base.Detach();
 	}

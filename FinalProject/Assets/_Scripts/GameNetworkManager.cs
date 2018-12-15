@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -49,5 +47,7 @@ public class GameNetworkManager : NetworkManager {
     void HideNetworkUI()
     {
         networkUI.alpha = 0;
+        networkUI.blocksRaycasts = false;
+        networkUI.interactable = false;
     }
 }
