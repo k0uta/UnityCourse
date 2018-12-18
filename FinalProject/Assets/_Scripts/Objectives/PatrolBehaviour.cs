@@ -25,7 +25,6 @@ public class PatrolBehaviour : NetworkBehaviour {
 
     public void Stop()
     {
-        agent.SetDestination(transform.position);
         audioSource.Stop();
     }
 
@@ -36,13 +35,26 @@ public class PatrolBehaviour : NetworkBehaviour {
 
     public void Reset()
     {
-        audioSource.Play();
+        if (!isServer)
+        {
+            return;
+        }
+
+        RpcResetSound();
         nextIndex = 0;
         //patrolPoints.Shuffle();
         transform.position = patrolPoints[nextIndex].position;
 
+        agent.SetDestination(transform.position);
+
         agent.speed = baseSpeed;
         agent.acceleration = baseAcceleration;
+    }
+
+    [ClientRpc]
+    void RpcResetSound()
+    {
+        audioSource.Play();
     }
 
     private void Update()

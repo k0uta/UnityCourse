@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityStandardAssets.Utility;
 
@@ -10,10 +11,10 @@ public class PlayerController : NetworkBehaviour {
     public NavMeshAgent agent;
 
     public Transform boxPlatform;
-    
+
     public List<CrateInteractable> crates;
 
-    [SyncVar]
+    [SyncVar(hook = "OnChangePlayerName")]
     public string playerName;
 
     [SyncVar(hook = "OnChangeScore")]
@@ -31,6 +32,8 @@ public class PlayerController : NetworkBehaviour {
 
     public AudioClip pickupAudioClip;
 
+    public Text playerNameText;
+
     AudioSource audioSource;
 
     private void Start()
@@ -40,6 +43,8 @@ public class PlayerController : NetworkBehaviour {
 		interactableLayer = LayerMask.NameToLayer("Interactable");
 
         animator = GetComponent<Animator>();
+
+        playerNameText.text = playerName;
 
         if (isLocalPlayer)
         {
@@ -69,6 +74,12 @@ public class PlayerController : NetworkBehaviour {
     void CmdSetPlayerName(string _playerName)
     {
         playerName = _playerName;
+    }
+
+    void OnChangePlayerName(string _playerName)
+    {
+        playerName = _playerName;
+        playerNameText.text = _playerName;
     }
 
     [Command]

@@ -40,13 +40,16 @@ public class CrateInteractable : InteractableBehaviour {
 		player.agent.acceleration = player.agent.acceleration * speedModifier;
 		
 		this.transform.SetParent(player.boxPlatform);
-		this.transform.position = player.boxPlatform.position + new Vector3(0, (player.crates.Count + 1) * this.transform.localScale.magnitude);
+		this.transform.position = player.boxPlatform.position + new Vector3(0, (player.crates.Count + 1) * this.transform.localScale.magnitude * 0.5f);
 
         player.crates.Add(this);
 
         player.GetComponent<AudioSource>().PlayOneShot(player.pickupAudioClip);
 
-        if(isServer)
+        //rb.isKinematic = true;
+        //rb.useGravity = false;
+
+        if (isServer)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
